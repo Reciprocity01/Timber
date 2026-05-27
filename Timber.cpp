@@ -57,6 +57,27 @@ int main() {
   // How fast can the bee fly
   float beeSpeed = 0.0f;
 
+  // make 3 cloud sprites from 1 texture
+  sf::Texture textureCloud;
+
+  // Load 1 new texture
+  if (!textureCloud.loadFromFile("graphics/cloud.png")) {
+    return 1;
+  }
+
+  // 3 New Sprites with the same texture
+  sf::Sprite spriteCloud1(textureCloud);
+  sf::Sprite spriteCloud2(textureCloud);
+  sf::Sprite spriteCloud3(textureCloud);
+
+  // Position the clouds on the left of the screen
+  // at different heights
+  spriteCloud1.setPosition({0, 0});
+  spriteCloud2.setPosition({0, 250});
+  spriteCloud3.setPosition({0, 500});
+
+  // Are the clouds currently on screen?
+
   while (window.isOpen()) {
     /*
      ********************************* Handle the players input**********
@@ -72,7 +93,7 @@ int main() {
      */
 
     /*
-     * ***************** Draw the scene********************
+     * ***************** Draw the scene here ********************
      * ****************************************************
      */
 
@@ -81,6 +102,17 @@ int main() {
 
     // Draw the scene here
     window.draw(spriteBackground);
+
+    // Draw the Clouds
+    window.draw(spriteCloud1);
+    window.draw(spriteCloud2);
+    window.draw(spriteCloud3);
+
+    // Draw the tree
+    window.draw(spriteTree);
+
+    // Draw the insect
+    window.draw(spriteBee);
 
     // Show everything we just drew window.display();
     window.display();
