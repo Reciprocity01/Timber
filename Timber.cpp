@@ -78,6 +78,15 @@ int main() {
 
   // Are the clouds currently on screen?
 
+  // How fast is each cloud
+
+  float cloud1Speed = 0;
+  float cloud2Speed = 0;
+  float cloud3Speed = 0;
+
+  // Variables to control time itself
+  Clock clock;
+
   while (window.isOpen()) {
     /*
      ********************************* Handle the players input**********
@@ -91,6 +100,34 @@ int main() {
     /*
      * *************** Update the screen **************************
      */
+
+    // Measure time
+    Time dt = clock.restart();
+
+    // Set up the bee
+    if (!beeActive) {
+      // How fast is the bee
+      srand((int)time(0));
+      beeSpeed = (rand() % 200) + 200;
+
+      // How high is the bee
+      srand((int)time(0) * 10);
+      float height = (rand() % 500) + 500;
+      spriteBee.setPosition({2000, height});
+      beeActive = true;
+    } else
+    // Move the bee
+    {
+      spriteBee.setPosition(
+          {spriteBee.getPosition().x - (beeSpeed * dt.asSeconds()),
+           spriteBee.getPosition().y});
+
+      // Has the bee reached the left-hand edge of the screen?
+      if (spriteBee.getPosition().x < -100) {
+        // Set it up ready to be a whole new bee next frame
+        beeActive = false;
+      }
+    }
 
     /*
      * ***************** Draw the scene here ********************
